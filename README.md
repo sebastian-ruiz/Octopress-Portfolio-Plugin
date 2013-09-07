@@ -1,16 +1,18 @@
-portfolio-jekyll-plugin
-=======================
+# Portfolio plugin for Octopress and Jekyll
 
-This Jekyll Plugin is used for easily rendering images 
-from the filesystem.
+Add a portfolio section to your Octopress or Jekyll blog.
+This project was forked from [anchetaWen](https://github.com/anchetaWern/portfolio-jekyll-plugin).
 
+### The following modifications were made:
 
-##How to Use
+- Separate directory for images removed.
+- Made more Mac Friendly, to ignore .DS_Store files.
 
-Copy `portfolio.rb` into your `plugins` directory. 
+## How to Use
+
+Copy `portfolio.rb` into your `/plugins` directory. 
 Create a new folder in the `source` directory and name it `portfolio`.
-This is where your projects will be stored, each project will have its own folder, and inside the folder 
-create the `index.markdown` file (the same as what's generated when you issue a `rake generate` command).
+This is where your projects will be stored. Each project will have its own folder, and inside the folder create the `index.markdown` file (the same as what's generated when you issue a `rake generate` command).
 Also create an `index.markdown` file inside the `portfolio` directory. This file will contain the following text:
 
 ```
@@ -26,138 +28,76 @@ footer: true
 ```
 
 What this does is to display the main image and the title for each of your projects. 
-As you can see it uses the default `page` layout, if you want to use a different layout just 
-create a new layout on the `_layouts` directory of the theme that you're using 
-then just change the value for the layout attribute of your main portfolio page. 
-So if you're using the slash theme then the layouts directory is in `.themes/slash/source/_layouts`.
+As you can see it uses the default `page` layout, if you want to use a different layout just create a new layout on the `_layouts` directory of the theme that you're using then just change the value for the layout attribute of your main portfolio page. 
+So if you're using the default theme then the layouts directory is in `.themes/classic/source/_layouts`.
 
 If you want to customize the CSS of the layout that you created, simply edit `scss` files inside the `sass/partials` directory
 of the theme that you're using.
 
-Once you're done this is how it will look like:
-
-![portfolio directory](https://dl.dropboxusercontent.com/u/126688107/github/portfolio_dir.PNG)
-
-After that you can create the directory in which the images for each of your projects will be stored.
-Mine is stored in the `source/images/pages/portfolio` directory. Again you will have to create a folder
-for each of your projects, it should be the same as the one that you have used in the `portfolio` directory, otherwise it won't work.
-The image that you want to be the main image (the one that will be shown in the page where all the projects are displayed)
-must have a prefix of `main-`. So if you want to use the image for the login page then the name of the image will be `main-login-page.png`.
-
-
-
-You can always customize the plugin based on the theme that you're using. You can change the HTML structure on the plugin file itself.
-
-You also have to add the following config options to the `_config.yml` file:
-
-```
-portfolio_root: /portfolio
-portfolio_img_root: /images/pages/portfolio
-portfolio_path: /web_files/blog/octopress/source/images/pages/portfolio
-portfolio_url: images/posts/pages/portfolio
-```
-
-The `portfolio_root` is the name of the directory where your portfolio is saved. 
-The `portfolio_img_root` is where the images for your portfolio is saved. 
-The `portfolio_path` is the actual path in your filesystem where your portfolio is saved. And the `portfolio_url` is the address where you can access
-your portfolio from the browser.
-
-You can use the plugin by using liquid tags with the name of the plugin
-as the first argument. The second argument is optional if you're rendering 
-the main page of your portfolio. 
-In the example below the name of the project is `zenoir`
-
-```
-{% portfolio zenoir %}
-```
-
-Here's a sample project page:
-
 ```
 ---
 layout: page
-title: "Zenoir"
+title: "Project Item 1"
 date: 2013-02-23 07:21
 comments: false
 sharing: true
 footer: true
 ---
 
+Your content here.
 
-##Project Type
+{% portfolio Project Item 1 %}
 
-Personal Project
-
-
-##Project Description
-
-Zenoir Online Classroom is an online learning system which can be used by teachers and students for conducting classes online. It's main feature is the sessions module wherein the teacher can have a discussion with the students using a chat box. This is implemented using Node.js and socket.io to ensure that the messages are distributed in real-time. It has also a distinct way of indicating unread posts by using red stars. There is also an email notification system which sends out emails to the students and teachers whenever a new post is made by a specific user in the classroom.
-
-
-##Technologies Used
-
-- HTML
-- CSS
-- JavaScript (jQuery)
-- PHP (CodeIgniter)
-- MySQL
-- jQuery UI
-- HTMLKickStart 
-- PixelCone Fileuploader
-
-
-
-
-##Github Repo
-
-[Zenoir Online Classroom](https://github.com/anchetaWern/Zenoir-Online-Classroom)
-
-
-
-##Screenshots
-
-{% portfolio zenoir %}
-```
-
-Lastly you could add the following style to `_article.scss` file
-so that the plugin will work out of the box.
+Content after images.
 
 ```
-.gallery{
-  width: 100%;
-	margin-top: 10px;
-	overflow: hidden;
-}
 
-.gallery a{ 
-	display: inline-block;
-	line-height: 1;
-	overflow: hidden;
-}
+Your folder structure should look like the following:
 
-.gallery img{
-	width: 290px;
-	margin: 13px;
-	margin-bottom: 0px;
-	border-width: 0 5px;
-	border: 5px solid #eee;
-}
-
-.gallery .gallery-item img{
-	height: 180px;
-}
-
-.gallery-item{
-	float: left;
-	width: 320px;
-	height: 241px;
-	margin-bottom: 30px;
-}
-
-.gallery-item h3 {
-  text-align: center;
-}
 ```
+/plugins
+	/portfolio.rb
+/source
+	/portfolio
+		/index.markdown
+		/Portfolio Item 1
+			/index.markdown
+			/main-image.jpg
+			/small-image1.jpg
+			/small-image2.jpg
+		/portfolio Item 2
+			/index.markdown
+			/main-image.jpg
+			/small-image1.jpg
+			/small-image2.jpg		
+```
+
+The images for each portfolio item is stored in the same directory as the `index.markdown` file.
+
+The image that you want to be the main image (the one that will be shown in the page where all the projects are displayed)
+must have a prefix of `main-`. The additional images for that portfolio item should have a prefix of `small-`.
+
+
+You can always customise the plugin based on the theme that you're using. You can change the HTML structure on the plugin file itself.
+
+You also have to add the following config options to the `_config.yml` file:
+
+```
+# ----------------------- #
+#   3rd Party Settings    #
+# ----------------------- #
+
+# Portfolio
+portfolio_root: /portfolio
+portfolio_path: /Volumes/Macintosh HD/Sebastian/Sites/octopress/source/portfolio
+
+…
+```
+
+The `portfolio_root` is the name of the directory where your portfolio is saved.  
+The `portfolio_path` is the actual path in your filesystem where your portfolio is saved.
+
+You can use the plugin by using liquid tags with the name of the plugin as the first argument. The second argument is optional if you're rendering the main page of your portfolio. 
 
 ##License
 
